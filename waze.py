@@ -11,7 +11,7 @@ import pgeocode
 import datetime
 
 BOT_API_KEY = "bot1781182562:AAHMkP8QMkYfJo7U9CYnn8tiu_7FfiI40MQ"
-CHAT_ID = "1826388742"
+CHAT_ID = "-1001580695128"
 
 def telegram_bot_sendtext(bot_message):
     bot_message = bot_message.replace('-','')
@@ -68,9 +68,11 @@ while True:
 				# response = requests.get('https://www.waze.com/row-rtserver/web/TGeoRSS?bottom=-31.975502766805263&left=115.82096958160402&ma=200&mj=100&mu=20&right=115.87133502960205&top=-31.896399239662113&types=alerts%2Ctraffic%2Cusers', headers=headers)
 				alerts = response['alerts']
 				for i in alerts:
-					print(zip_code, i['type'], str(datetime.datetime.fromtimestamp(i['pubMillis']/1000.0)))
-					if('ACCIDENT' == str(i['type'])):
-						event = " ".join([i['type'], i['street'], str(datetime.datetime.fromtimestamp(i['pubMillis']/1000.0))])
+					print(zip_code, i['type'], str(datetime.datetime.fromtimestamp(i['pubMillis']/1000.0)), 'Accident?', 'ACCIDENT' in str(i['type']))
+					if('ACCIDENT' in str(i['type'])):
+						print(i)
+						street = i['street'] if 'street' in i else 'latitude %s longitude %s' % (i['location']['x'], i['location']['y'])
+						event = " ".join([i['type'], street, str(datetime.datetime.fromtimestamp(i['pubMillis']/1000.0))])
 						if event not in events:
 							print('Found event', event, 'sending it to telegram')
 							print('Response from telegram:',telegram_bot_sendtext(event))
