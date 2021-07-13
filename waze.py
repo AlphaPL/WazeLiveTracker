@@ -14,7 +14,6 @@ def telegram_bot_sendtext(bot_message):
     bot_token = ''
     bot_chatID = ''
     send_text = 'https://api.telegram.org/' + BOT_API_KEY+'/sendMessage?chat_id=' + CHAT_ID +'&parse_mode=Markdown&text=' + bot_message
-
     response = requests.get(send_text)
 
     return response.json()
@@ -68,7 +67,7 @@ while True:
 					if('ACCIDENT' in str(i['type'])):
 						print(i)
 						street = i['street'] if 'street' in i else 'latitude %s longitude %s' % (i['location']['x'], i['location']['y'])
-						event = " ".join([i['type'], street])
+						event = " ".join([i['type'], street, 'https://www.waze.com/pl/live-map/directions?to=' + str(i['location']['y']) + '%2C'+ str(i['location']['x'])])
 						if event not in events:
 							print('Found event', event, 'sending it to telegram')
 							print('Response from telegram:',telegram_bot_sendtext(event))
@@ -78,8 +77,5 @@ while True:
 			raise e
 		except Exception as e:
 			print(e)
-	print('Backing of for five minutes')
-	import time
-	time.sleep(120)
 
 
