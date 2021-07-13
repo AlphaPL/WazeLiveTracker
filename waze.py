@@ -9,9 +9,10 @@ import json
 import requests
 import pgeocode
 import datetime
+import os
 
-BOT_API_KEY = "bot1781182562:AAHMkP8QMkYfJo7U9CYnn8tiu_7FfiI40MQ"
-CHAT_ID = "-1001580695128"
+BOT_API_KEY = os.environ['BOT_API_KEY']
+CHAT_ID = os.environ['CHAT_ID']
 
 def telegram_bot_sendtext(bot_message):
     bot_message = bot_message.replace('-','')
@@ -72,7 +73,7 @@ while True:
 					if('ACCIDENT' in str(i['type'])):
 						print(i)
 						street = i['street'] if 'street' in i else 'latitude %s longitude %s' % (i['location']['x'], i['location']['y'])
-						event = " ".join([i['type'], street, str(datetime.datetime.fromtimestamp(i['pubMillis']/1000.0))])
+						event = " ".join([i['type'], street])
 						if event not in events:
 							print('Found event', event, 'sending it to telegram')
 							print('Response from telegram:',telegram_bot_sendtext(event))
