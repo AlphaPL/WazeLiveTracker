@@ -10,7 +10,6 @@ BOT_API_KEY = os.environ['BOT_API_KEY']
 CHAT_ID = os.environ['CHAT_ID']
 
 def telegram_bot_sendtext(bot_message):
-    bot_message = bot_message.replace('-','')
     bot_token = ''
     bot_chatID = ''
     send_text = 'https://api.telegram.org/' + BOT_API_KEY+'/sendMessage?chat_id=' + CHAT_ID +'&parse_mode=Markdown&text=' + bot_message
