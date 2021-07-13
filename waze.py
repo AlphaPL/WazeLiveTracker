@@ -80,6 +80,6 @@ while True:
 			print(e)
 	print('Backing of for five minutes')
 	import time
-	time.sleep(300)
+	time.sleep(120)
 
 
