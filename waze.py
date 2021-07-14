@@ -66,7 +66,7 @@ while True:
 					if('ACCIDENT' in str(i['type'])):
 						print(i)
 						street = i['street'] if 'street' in i else 'latitude %s longitude %s' % (i['location']['x'], i['location']['y'])
-						event = " ".join([i['type'], street])
+						event = " ".join([street, i['pubMillis']])
 						if event not in events:
 							print('Found event', event, 'sending it to telegram')
 							print('Response from telegram:',telegram_bot_sendtext(" ".join([i['type'], street, 'https://www.waze.com/en/live-map/directions?to=' + str(i['location']['y']) + '%2C'+ str(i['location']['x'])])))
