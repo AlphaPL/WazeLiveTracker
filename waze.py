@@ -70,7 +70,7 @@ while True:
 						if i['id'] not in ids:
 							print('Found event', event, 'sending it to telegram')
 							print('Response from telegram:',telegram_bot_sendtext(" ".join([i['type'], street, 'https://www.waze.com/en/live-map/directions?to=' + str(i['location']['y']) + '%2C'+ str(i['location']['x'])])))
-							ids = ids[:99]
+							ids = ids[1:]
 							ids = ids + [i['id']]
 						else:
 							print('Already tracking event id', i['id'])
